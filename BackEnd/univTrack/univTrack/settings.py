@@ -32,8 +32,8 @@ DEBUG = env('DEBUG')
 #Adding to allow for front/backend communication according to this article:
 #https://medium.com/@clever.tech.memes/django-and-flutter-a-step-by-step-tutorial-for-a-boilerplate-application-f564335f2e8b
 CORS_ORIGIN_WHITELIST = [
-    "http://127.0.0.1:54078",
-    "http://localhost:54078"
+    "http://127.0.0.1:62112",
+    "http://localhost:62112"
 ]
 #End code for front/backend communication
 
