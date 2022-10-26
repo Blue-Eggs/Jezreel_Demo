@@ -66418,7 +66418,7 @@ uo(){var s=0,r=A.a0(t.Wd),q,p,o
 var $async$uo=A.a1(function(a,b){if(a===1)return A.Y(b,r)
 while(true)switch(s){case 0:p=t.N
 s=3
-return A.a2(A.axr(A.qY("http://127.0.0.1:8000/views/"),A.aD(["Content-Type","applications/json; charset-UTF-8"],p,p)),$async$uo)
+return A.a2(A.axr(A.qY("http://ec2-3-17-159-227.us-east-2.compute.amazonaws.com:8080/views/"),A.aD(["Content-Type","applications/json; charset-UTF-8"],p,p)),$async$uo)
 case 3:o=b
 A.j4(A.axa(A.avf(o.e).c.a.h(0,"charset")).d4(0,o.w))
 q=o
