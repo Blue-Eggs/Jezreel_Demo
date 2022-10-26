@@ -30,13 +30,13 @@ class Home extends StatelessWidget {
   //This function will return the /views/ json when triggered, right now it is called when we press the search button
   Future<http.Response> packageButton() async {
     http.Response returnedResult = await http.get(
-        Uri.parse('http://127.0.0.1:8000/views/'),
+        Uri.parse(
+            'http://ec2-3-17-159-227.us-east-2.compute.amazonaws.com:8080/views/'),
         headers: <String, String>{
           'Content-Type': 'applications/json; charset-UTF-8'
         });
     print(returnedResult.body);
     return returnedResult;
-
   }
 
   // This widget is the root of your application.
