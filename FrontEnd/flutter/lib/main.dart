@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +36,9 @@ class Home extends StatelessWidget {
         headers: <String, String>{
           'Content-Type': 'applications/json; charset-UTF-8'
         });
-    print(returnedResult.body);
+    Map<String,dynamic> myMap = json.decode(returnedResult.body);
+    print(myMap['carrier']);
+    //print(returnedResult.body);
     return returnedResult;
   }
 
