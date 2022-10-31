@@ -21,13 +21,14 @@ def getName(request):
 @csrf_exempt
 @permission_classes([AllowAny],)
 def testPOST(request):
-    print('IM HERE')
-    if request.method == 'POST':
+    #print('IM HERE')
+  #  if request.method == 'POST':
         #data = request.body
         #title = request.POST.get('title')
         #JSONDecoder(data)
-        data = json.loads(request.body)
-        print(data['title'])
+    data = json.loads(request.body)
+    print(data['title'])
+    print(data['title2'])
     result = trackInfo.getInfoTrack(data['title'])
     return JsonResponse(result, safe=False)
 
