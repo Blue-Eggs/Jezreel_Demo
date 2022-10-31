@@ -39,6 +39,18 @@ class Home extends StatelessWidget {
     Map<String,dynamic> myMap = json.decode(returnedResult.body);
     print(myMap['carrier']);
     //print(returnedResult.body);
+
+    http.Response test_Result = await http.post(
+        Uri.parse(
+          'http://127.0.0.1:8000/views2/'),
+        headers: <String, String>{
+          'Content-Type': 'applications/json; charset=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'title': 'SHIPPO',
+        }),
+    );
+
     return returnedResult;
   }
 
