@@ -24,11 +24,11 @@ def testPOST(request):
     print('IM HERE')
     if request.method == 'POST':
         #data = request.body
-        title = request.POST.get('title')
+        #title = request.POST.get('title')
         #JSONDecoder(data)
         data = json.loads(request.body)
         print(data['title'])
-    result = trackInfo.getInfoTrack('SHIPPO_TRANSIT')
+    result = trackInfo.getInfoTrack(data['title'])
     return JsonResponse(result, safe=False)
 
 @api_view(['GET'],)
