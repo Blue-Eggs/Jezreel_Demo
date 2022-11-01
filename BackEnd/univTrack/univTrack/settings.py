@@ -7,10 +7,11 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.1/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/4.1/ref/settings/
+https://docs.djangoproject.com/en/4.1/ref/settings/cd
 """
 
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(z4%egi0p#_$q-m^&t2u@!s56!s5=g@t8@s^2pq6)ag7d$0hu^'
+env = environ.Env()
+env.read_env()
+SECRET_KEY = env('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
+
+#Adding to allow for front/backend communication according to this article:
+#https://medium.com/@clever.tech.memes/django-and-flutter-a-step-by-step-tutorial-for-a-boilerplate-application-f564335f2e8b
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:62112",
+    "http://localhost:62112",
+    "http://ec2-3-17-159-227.us-east-2.compute.amazonaws.com:8080",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:62112",
+    "http://localhost:62112",
+]
+#End code for front/backend communication
 
 ALLOWED_HOSTS = ["*"]
 
@@ -38,7 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'otherpi',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework'
 
 ]
 
@@ -53,6 +72,28 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware'
 ]
+
+#Adding rest framework and simple jwt to communicate between front/backend according to this guide:
+#https://medium.com/@clever.tech.memes/django-and-flutter-a-step-by-step-tutorial-for-a-boilerplate-application-f564335f2e8b
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.authentication.TokenAuthentication'
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+#End code added for backend/frontend communication
 
 ROOT_URLCONF = 'univTrack.urls'
 
