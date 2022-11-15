@@ -22,8 +22,8 @@ def getName(request):
 @permission_classes([AllowAny],)
 def testPOST(request): 
     data = json.loads(request.body) # b'{'title' : 'SHIPPO_TRANSIT', 'title2' : 'id'}
-    print(data['title'])
-    print(data['title2'])
+    print(data['title']) # Fixed Tracking ID
+    print(data['title2']) # ID passed
     result = trackInfo.getInfoTrack(data['title2'])
     return JsonResponse(result, safe=False)
 
