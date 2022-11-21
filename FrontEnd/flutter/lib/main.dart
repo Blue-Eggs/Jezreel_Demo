@@ -22,8 +22,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-String test_string = '';
-
 class Home extends StatelessWidget {
   const Home({Key? key, required this.title}) : super(key: key);
 
@@ -189,6 +187,15 @@ class Home extends StatelessWidget {
                                 Map<String, dynamic> myMap = json.decode(data);
 
                                 print(myMap['tracking_history']);
+                                //const String str = myMap['tracking_history'];
+                                String str =
+                                    myMap['tracking_history'].toString();
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return TrackInformation(
+                                      title: 'TrackInformation',
+                                      trackhistory: str);
+                                }));
 
                                 /// function(myMap){
                                 ///  Navigate push() blah balh
@@ -455,5 +462,23 @@ class Account extends StatelessWidget {
         ),
       ),
     ));
+  }
+}
+
+class TrackInformation extends StatelessWidget {
+  TrackInformation({Key? key, required this.title, required this.trackhistory})
+      : super(key: key);
+  String title;
+  String trackhistory;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+          child: Text(trackhistory),
+          onTap: () {
+            Navigator.pop(context, true);
+          }),
+    );
   }
 }
