@@ -20,16 +20,11 @@ def getName(request):
 
 @csrf_exempt
 @permission_classes([AllowAny],)
-def testPOST(request):
-    #print('IM HERE')
-  #  if request.method == 'POST':
-        #data = request.body
-        #title = request.POST.get('title')
-        #JSONDecoder(data)
-    data = json.loads(request.body)
-    print(data['title'])
-    print(data['title2'])
-    result = trackInfo.getInfoTrack(data['title'])
+def testPOST(request): 
+    data = json.loads(request.body) # b'{'title' : 'SHIPPO_TRANSIT', 'title2' : 'id'}
+    print(data['title']) # Fixed Tracking ID
+    print(data['title2']) # ID passed
+    result = trackInfo.getInfoTrack(data['title2'])
     return JsonResponse(result, safe=False)
 
 @api_view(['GET'],)
