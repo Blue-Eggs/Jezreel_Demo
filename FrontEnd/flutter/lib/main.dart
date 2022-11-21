@@ -486,7 +486,7 @@ class TrackInformation extends StatelessWidget {
 
     return Center(
       child: GestureDetector(
-          child: Text('Hello?!'),
+          child: Text(trackinfo.address_from?.city ?? 'null'),
           onTap: () {
             Navigator.pop(context, true);
           }),

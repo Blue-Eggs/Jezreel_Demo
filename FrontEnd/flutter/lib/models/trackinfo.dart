@@ -8,7 +8,7 @@ class TrackInfo {
   String carrier;
   Servicelevel servicelevel;
   Address? address_from;
-  Address address_to;
+  Address? address_to;
   String? eta;
   String? original_eta;
   TrackingStatus? tracking_status;
