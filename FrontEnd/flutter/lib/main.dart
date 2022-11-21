@@ -22,13 +22,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+String test_string = '';
+
 class Home extends StatelessWidget {
   const Home({Key? key, required this.title}) : super(key: key);
+
   final String title;
   final String mainProfilePicture =
       "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg";
-
-  
 
   //This function will return the /views/ json when triggered, right now it is called when we press the search button
   Future<http.Response> packageButton(String id) async {
@@ -42,26 +43,28 @@ class Home extends StatelessWidget {
     //print(returnedResult.body);*/
     print("Tracking $id has been passed in this function");
     http.Response test_Result = await http.post(
-        Uri.parse(
-          'http://127.0.0.1:8000/views2/'),
-        headers: <String, String>{
-          'Content-Type': 'applications/json; charset=UTF-8'
-        },
-        body: jsonEncode(<String, String>{
-          'title': 'SHIPPO_TRANSIT',
-          'title2': id,
-        }),
+      Uri.parse('http://127.0.0.1:8000/views2/'),
+      headers: <String, String>{
+        'Content-Type': 'applications/json; charset=UTF-8'
+      },
+      body: jsonEncode(<String, String>{
+        'title': 'SHIPPO_TRANSIT',
+        'title2': id,
+      }),
     );
 
-    Map<String,dynamic> myMap = json.decode(test_Result.body);
-    print(myMap['tracking_history']);
-    
+    // Map<String, dynamic> myMap = json.decode(test_Result.body); //
+    //print(myMap['tracking_history']);
+
+    //functionToPrint(myMap)  -> It will switch to a different pages showing the track information
+
+    //print(test_string);
 
     return test_Result;
   }
 
   // This widget is the root of your application.
- 
+
   @override
   Widget build(BuildContext context) {
     String trackingID = '';
@@ -161,10 +164,11 @@ class Home extends StatelessWidget {
                               width: 400,
                               height: 50,
                               child: TextField(
-                                onChanged: (text){
-                                  trackingID = text; //We're updating trackingID real time in every input text is entered
+                                onChanged: (text) {
+                                  trackingID =
+                                      text; //We're updating trackingID real time in every input text is entered
                                 }, //There can be an optimized way to update trackingID instead of updating it concurrently
-                               /* textInputAction: TextInputAction.search, 
+                                /* textInputAction: TextInputAction.search, 
                                 onSubmitted: (value){
                                   print(value);
                                 },*/
@@ -179,8 +183,17 @@ class Home extends StatelessWidget {
                         Column(
                           children: [
                             IconButton(
-                              onPressed:(){
-                                packageButton(trackingID);
+                              onPressed: () async {
+                                var data =
+                                    (await packageButton(trackingID)).body;
+                                Map<String, dynamic> myMap = json.decode(data);
+
+                                print(myMap['tracking_history']);
+
+                                /// function(myMap){
+                                ///  Navigate push() blah balh
+                                /// }
+                                ///
                               },
                               icon: Icon(Icons.search),
                               //style: ButtonStyle,
