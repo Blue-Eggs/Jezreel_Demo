@@ -7,12 +7,12 @@ class TrackInfo {
   String tracking_number;
   String carrier;
   Servicelevel servicelevel;
-  Address address_from;
+  Address? address_from;
   Address address_to;
-  String eta;
-  String original_eta;
-  TrackingStatus tracking_status;
-  List<TrackingStatus> tracking_history;
+  String? eta;
+  String? original_eta;
+  TrackingStatus? tracking_status;
+  List<TrackingStatus>? tracking_history;
 
   TrackInfo({required this.tracking_number, 
             required this.carrier,
@@ -35,12 +35,12 @@ class TrackInfo {
       tracking_number : json['tracking_number'],
       carrier : json['carrier'],
       servicelevel: Servicelevel.fromJson(json['servicelevel']),
-      address_from: Address.fromJson(json['address_from']),
+      address_from: json['address_from'] == null ? null : Address.fromJson(json['address_from']),
       address_to: Address.fromJson(json['address_to']),
-      eta : json['eta'],
-      original_eta : json['original_eta'],
-      tracking_status : TrackingStatus.fromJson(json['tracking_status']),
-      tracking_history: List<TrackingStatus>.generate(json['tracking_history'].length, (i)
+      eta : json['eta'] == null ? null : json['eta'],
+      original_eta : json['original_eta'] == null ? null : json['original_eta'],
+      tracking_status : json['tracking_status'] == null ? null : TrackingStatus.fromJson(json['tracking_status']),
+      tracking_history: json['tracking_history'] == null ? null : List<TrackingStatus>.generate(json['tracking_history'].length, (i)
       => TrackingStatus.fromJson(json['tracking_history'][i])),
       
       );
