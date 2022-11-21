@@ -475,7 +475,12 @@ class TrackInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: GestureDetector(
-          child: Text(trackhistory),
+          //display the tracking information
+          child: Text(
+            trackhistory,
+            style: TextStyle(fontSize: 12),
+            // make the text pretty
+          ),
           onTap: () {
             Navigator.pop(context, true);
           }),
