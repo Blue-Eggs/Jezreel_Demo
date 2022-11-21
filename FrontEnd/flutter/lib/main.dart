@@ -190,6 +190,7 @@ class Home extends StatelessWidget {
                                 //const String str = myMap['tracking_history'];
                                 String str =
                                     myMap['tracking_history'].toString();
+                                // Create multiple string variable needed for tracking information
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return TrackInformation(
@@ -257,7 +258,7 @@ class Packages extends StatelessWidget {
                     accountEmail: Text("example@BlueEggs.com"),
                     currentAccountPicture: new GestureDetector(
                         onTap: () => print("Account clicked"),
-                        child: new CircleAvatar()),
+                        child: const CircleAvatar()),
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/truckDrivingDown.jpg"),
@@ -375,7 +376,7 @@ class Account extends StatelessWidget {
                 accountEmail: Text("example@BlueEggs.com"),
                 currentAccountPicture: new GestureDetector(
                     onTap: () => print("Account clicked"),
-                    child: new CircleAvatar()),
+                    child: const CircleAvatar()),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/truckDrivingDown.jpg"),
@@ -471,11 +472,14 @@ class TrackInformation extends StatelessWidget {
   String title;
   String trackhistory;
 
+  ///
   @override
   Widget build(BuildContext context) {
+    
+
     return Center(
       child: GestureDetector(
-          child: Text(trackhistory),
+          child: Text('Hello?!'),
           onTap: () {
             Navigator.pop(context, true);
           }),
