@@ -11,6 +11,7 @@ class Address {
       required this.country});
 
   factory Address.fromJson(Map<String, dynamic> json) {
+
     return Address(
           city : json['city'], 
           state : json['state'],

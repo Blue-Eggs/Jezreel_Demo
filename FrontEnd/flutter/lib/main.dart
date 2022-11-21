@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../models/trackinfo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -186,16 +187,21 @@ class Home extends StatelessWidget {
                                     (await packageButton(trackingID)).body;
                                 Map<String, dynamic> myMap = json.decode(data);
 
-                                print(myMap['tracking_history']);
+                               // print(myMap['tracking_history']);
                                 //const String str = myMap['tracking_history'];
                                 String str =
                                     myMap['tracking_history'].toString();
                                 // Create multiple string variable needed for tracking information
+
+                                TrackInfo thisINFO = new TrackInfo.fromJson(myMap);
+                                print('passed here');
+
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return TrackInformation(
                                       title: 'TrackInformation',
-                                      trackhistory: str);
+                                      trackhistory: str,
+                                      trackinfo : thisINFO);
                                 }));
 
                                 /// function(myMap){
@@ -467,11 +473,12 @@ class Account extends StatelessWidget {
 }
 
 class TrackInformation extends StatelessWidget {
-  TrackInformation({Key? key, required this.title, required this.trackhistory})
+  TrackInformation({Key? key, required this.title, required this.trackhistory, required this.trackinfo})
       : super(key: key);
   String title;
   String trackhistory;
-
+  TrackInfo trackinfo;
+  
   ///
   @override
   Widget build(BuildContext context) {
