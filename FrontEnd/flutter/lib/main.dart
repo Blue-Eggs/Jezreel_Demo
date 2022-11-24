@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../models/trackinfo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,11 +25,10 @@ class MyApp extends StatelessWidget {
 
 class Home extends StatelessWidget {
   const Home({Key? key, required this.title}) : super(key: key);
+
   final String title;
   final String mainProfilePicture =
       "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg";
-
-  
 
   //This function will return the /views/ json when triggered, right now it is called when we press the search button
   Future<http.Response> packageButton(String id) async {
@@ -42,28 +42,28 @@ class Home extends StatelessWidget {
     //print(returnedResult.body);*/
     print("Tracking $id has been passed in this function");
     http.Response test_Result = await http.post(
-        Uri.parse(
-          'http://127.0.0.1:8000/views2/'),
-        headers: <String, String>{
-          'Content-Type': 'applications/json; charset=UTF-8'
-        },
-        body: jsonEncode(<String, String>{
-          'title': 'SHIPPO_TRANSIT',
-          'title2': id,
-        }),
+      Uri.parse('http://127.0.0.1:8000/views2/'),
+      headers: <String, String>{
+        'Content-Type': 'applications/json; charset=UTF-8'
+      },
+      body: jsonEncode(<String, String>{
+        'title': 'SHIPPO_TRANSIT',
+        'title2': id,
+      }),
     );
 
-    Map<String,dynamic> myMap = json.decode(test_Result.body);
-    print(myMap['tracking_history']); //myMap is the JSon that holds everything
+    // Map<String, dynamic> myMap = json.decode(test_Result.body); //
+    //print(myMap['tracking_history']);
 
-    //functionCallsNewPage(myMap)
-    
+    //functionToPrint(myMap)  -> It will switch to a different pages showing the track information
+
+    //print(test_string);
 
     return test_Result;
   }
 
   // This widget is the root of your application.
- 
+
   @override
   Widget build(BuildContext context) {
     String trackingID = '';
@@ -163,10 +163,11 @@ class Home extends StatelessWidget {
                               width: 400,
                               height: 50,
                               child: TextField(
-                                onChanged: (text){
-                                  trackingID = text; //We're updating trackingID real time in every input text is entered
+                                onChanged: (text) {
+                                  trackingID =
+                                      text; //We're updating trackingID real time in every input text is entered
                                 }, //There can be an optimized way to update trackingID instead of updating it concurrently
-                               /* textInputAction: TextInputAction.search, 
+                                /* textInputAction: TextInputAction.search, 
                                 onSubmitted: (value){
                                   print(value);
                                 },*/
@@ -181,8 +182,32 @@ class Home extends StatelessWidget {
                         Column(
                           children: [
                             IconButton(
-                              onPressed:(){
-                                packageButton(trackingID);
+                              onPressed: () async {
+                                var data =
+                                    (await packageButton(trackingID)).body;
+                                Map<String, dynamic> myMap = json.decode(data);
+
+                               // print(myMap['tracking_history']);
+                                //const String str = myMap['tracking_history'];
+                                String str =
+                                    myMap['tracking_history'].toString();
+                                // Create multiple string variable needed for tracking information
+
+                                TrackInfo thisINFO = new TrackInfo.fromJson(myMap);
+                                print('passed here');
+
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return TrackInformation(
+                                      title: 'TrackInformation',
+                                      trackhistory: str,
+                                      trackinfo : thisINFO);
+                                }));
+
+                                /// function(myMap){
+                                ///  Navigate push() blah balh
+                                /// }
+                                ///
                               },
                               icon: Icon(Icons.search),
                               //style: ButtonStyle,
@@ -239,7 +264,7 @@ class Packages extends StatelessWidget {
                     accountEmail: Text("example@BlueEggs.com"),
                     currentAccountPicture: new GestureDetector(
                         onTap: () => print("Account clicked"),
-                        child: new CircleAvatar()),
+                        child: const CircleAvatar()),
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/truckDrivingDown.jpg"),
@@ -357,7 +382,7 @@ class Account extends StatelessWidget {
                 accountEmail: Text("example@BlueEggs.com"),
                 currentAccountPicture: new GestureDetector(
                     onTap: () => print("Account clicked"),
-                    child: new CircleAvatar()),
+                    child: const CircleAvatar()),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/truckDrivingDown.jpg"),
@@ -444,5 +469,27 @@ class Account extends StatelessWidget {
         ),
       ),
     ));
+  }
+}
+
+class TrackInformation extends StatelessWidget {
+  TrackInformation({Key? key, required this.title, required this.trackhistory, required this.trackinfo})
+      : super(key: key);
+  String title;
+  String trackhistory;
+  TrackInfo trackinfo;
+  
+  ///
+  @override
+  Widget build(BuildContext context) {
+    
+
+    return Center(
+      child: GestureDetector(
+          child: Text(trackinfo.address_from?.city ?? 'null'),
+          onTap: () {
+            Navigator.pop(context, true);
+          }),
+    );
   }
 }
