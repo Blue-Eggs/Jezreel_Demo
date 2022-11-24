@@ -54,7 +54,9 @@ class Home extends StatelessWidget {
     );
 
     Map<String,dynamic> myMap = json.decode(test_Result.body);
-    print(myMap['tracking_history']);
+    print(myMap['tracking_history']); //myMap is the JSon that holds everything
+
+    //functionCallsNewPage(myMap)
     
 
     return test_Result;
