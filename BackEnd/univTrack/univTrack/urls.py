@@ -14,9 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.views.static import serve
 from django.urls import path, include
+import os
+
+#Find the directory of the base and of the flutter app
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FLUTTER_WEB_APP = os.path.join(BASE_DIR, 'flutter_web_app')
+
+#Function to redirect to the flutter web app directory
+def flutter_redirect(request, resource):
+    return serve(request, resource, FLUTTER_WEB_APP)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('otherpi.urls'))
+    path('', include('otherpi.urls')),
+    #Redirect base path to the flutter app
+    path('', lambda r: flutter_redirect(r, 'index.html')),
+    path('<path:resource>', flutter_redirect),
 ]
