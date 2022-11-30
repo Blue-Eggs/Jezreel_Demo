@@ -194,85 +194,106 @@ class TrackInformation extends StatelessWidget {
 
 
     return Center(
-      child: DefaultTextStyle(
-        style: TextStyle(),
-        child: Row(
-          children: [
-            Column( //First column, has the back button
-              children: [
-                Material(
-                  child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context, true);
-                      },
-                      icon: Icon(Icons.arrow_back_rounded)
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const Home(title: 'Home');
+              }));
+            },
+            child: Text(
+              "Your package",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          backgroundColor: Colors.purple[700],
+        ),
+        body: DefaultTextStyle(
+          style: TextStyle(),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 170,
+                child: Column( //Second column, has the labels for the data
+                    children: [
+                      Text("Tracking number: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("Carrier: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("Shipping category: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),),
+
+                    ]),
+              ),
+              SizedBox(
+                width: 200,
+                child: Column( //Third Column, holds data from the json
+                    children: [
+                      Text(trackinfo.tracking_number ?? 'null'),
+                      Text(trackinfo.carrier ?? 'null'),
+                      Text(trackinfo.servicelevel.name ?? 'null'),
+
+                    ]),
+              ),
+              SizedBox(
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 300,
+                        height: 200,
+                        child: Image(
+                          image: AssetImage("assets/images/manMovingBox.png"),
+                        ),
+                      ),
+                      Text("Current eta: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("Status updated on: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("Package status: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("Current state: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text("Current city: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),),
+                    ]
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              width: 170,
-              child: Column( //Second column, has the labels for the data
-                  children: [
-                    Text("Tracking number: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("Carrier: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("Shipping category: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-
-                  ]),
-            ),
-            SizedBox(
-              width: 200,
-              child: Column( //Third Column, holds data from the json
-                  children: [
-                    Text(trackinfo.tracking_number ?? 'null'),
-                    Text(trackinfo.carrier ?? 'null'),
-                    Text(trackinfo.servicelevel.name ?? 'null'),
-
-                  ]),
-            ),
-            SizedBox(
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-                ),
-                child: Column(
-                  children: [
-                    Text("Current eta: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("Status updated on: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("Package status: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("Current state: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("Current city: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                  ]
+              ),
+              SizedBox(
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                  child: Column(
+                      children: [
+                        SizedBox(
+                          width: 300,
+                          height: 200,
+                          child: Image(
+                            image: AssetImage("assets/images/homeClipart.jpg"),
+                          ),
+                        ),
+                        Text(trackinfo.eta ?? 'null'),
+                        Text(trackinfo.tracking_status?.status_date ?? 'null'),
+                        Text(trackinfo.tracking_status?.status_details ?? 'null'),
+                        Text(trackinfo.tracking_status?.location?.state ?? 'null'),
+                        Text(trackinfo.tracking_status?.location?.city ?? 'null'),
+                      ]
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 30,
-                ),
-                child: Column(
-                    children: [
-                      Text(trackinfo.eta ?? 'null'),
-                      Text(trackinfo.tracking_status?.status_date ?? 'null'),
-                      Text(trackinfo.tracking_status?.status_details ?? 'null'),
-                      Text(trackinfo.tracking_status?.location?.state ?? 'null'),
-                      Text(trackinfo.tracking_status?.location?.city ?? 'null'),
-                    ]
-                ),
-              ),
-            ),
-          ]),
+            ]),
+        ),
       ),
-      );
+    );
   }
 }
