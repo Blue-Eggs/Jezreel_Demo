@@ -138,13 +138,14 @@ class Home extends StatelessWidget {
                                     (await packageButton(trackingID)).body;
                                 Map<String, dynamic> myMap = json.decode(data);
 
-                               // print(myMap['tracking_history']);
+                                // print(myMap['tracking_history']);
                                 //const String str = myMap['tracking_history'];
                                 String str =
                                     myMap['tracking_history'].toString();
                                 // Create multiple string variable needed for tracking information
 
-                                TrackInfo thisINFO = new TrackInfo.fromJson(myMap);
+                                TrackInfo thisINFO =
+                                    new TrackInfo.fromJson(myMap);
                                 print('passed here');
 
                                 Navigator.push(context,
@@ -152,7 +153,7 @@ class Home extends StatelessWidget {
                                   return TrackInformation(
                                       title: 'TrackInformation',
                                       trackhistory: str,
-                                      trackinfo : thisINFO);
+                                      trackinfo: thisINFO);
                                 }));
 
                                 /// function(myMap){
@@ -171,7 +172,9 @@ class Home extends StatelessWidget {
                     Text("Adobe Stock: Profile Image\n"
                         "pexels.com: Package Handoff\n"
                         "iStock: Truck driving down road\n"
-                        "Images should be liscensed or removed"),*/
+                        "Images should be liscensed or removed"),
+                        House image from https://clipartix.com/home-clip-art-image-32741/
+                        Moving man image from https://www.clipartmax.com/so/moving-boxes-clipart/ */
                   ],
                 ),
               ],
@@ -182,7 +185,11 @@ class Home extends StatelessWidget {
 }
 
 class TrackInformation extends StatelessWidget {
-  TrackInformation({Key? key, required this.title, required this.trackhistory, required this.trackinfo})
+  TrackInformation(
+      {Key? key,
+      required this.title,
+      required this.trackhistory,
+      required this.trackinfo})
       : super(key: key);
   String title;
   String trackhistory;
@@ -216,88 +223,94 @@ class TrackInformation extends StatelessWidget {
         ),
         body: DefaultTextStyle(
           style: TextStyle(),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 170,
-                child: Column( //Second column, has the labels for the data
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                      ),
-                      Text("Tracking number: ",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Carrier: ",
-                        style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Shipping category: ",
-                        style: TextStyle(fontWeight: FontWeight.bold),),
-                    ]),
-              ),
-              SizedBox(
-                width: 200,
-                child: Column( //Third Column, holds data from the json
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                      ),
-                      Text(trackinfo.tracking_number ?? 'null'),
-                      Text(trackinfo.carrier ?? 'null'),
-                      Text(trackinfo.servicelevel.name ?? 'null'),
-
-                    ]),
-              ),
-              SizedBox(
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 300,
-                        height: 200,
-                        child: Image(
-                          image: AssetImage("assets/images/manMovingBox.png"),
-                        ),
-                      ),
-                      Text("Current eta: ",
-                        style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Package status: ",
-                        style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Location: ",
-                        style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Status updated on: ",
-                        style: TextStyle(fontWeight: FontWeight.bold),),
-                    ]
-                  ),
+          child: Row(children: [
+            SizedBox(
+              width: 170,
+              child: Column(//Second column, has the labels for the data
+                  children: [
+                SizedBox(
+                  width: 200,
+                  height: 100,
                 ),
-              ),
-              SizedBox(
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                  child: Column(
-                      children: [
-                        SizedBox(
-                          width: 300,
-                          height: 200,
-                          child: Image(
-                            image: AssetImage("assets/images/homeClipart.jpg"),
-                          ),
-                        ),
-                        Text((trackinfo.eta ?? 'null').substring(0,9)),
-                        Text(trackinfo.tracking_status?.status_details ?? 'null'),
-                        Text(location),
-                        Text((trackinfo.tracking_status?.status_date ?? 'null').substring(0,9)),
-                      ]
-                  ),
+                Text(
+                  "Tracking number: ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
+                Text(
+                  "Carrier: ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "Shipping category: ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ]),
+            ),
+            SizedBox(
+              width: 200,
+              child: Column(//Third Column, holds data from the json
+                  children: [
+                SizedBox(
+                  width: 200,
+                  height: 100,
+                ),
+                Text(trackinfo.tracking_number ?? 'null'),
+                Text(trackinfo.carrier ?? 'null'),
+                Text(trackinfo.servicelevel.name ?? 'null'),
+              ]),
+            ),
+            SizedBox(
+              child: DefaultTextStyle(
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                child: Column(children: [
+                  SizedBox(
+                    width: 300,
+                    height: 200,
+                    child: Image(
+                      image: AssetImage("assets/images/manMovingBox.png"),
+                    ),
+                  ),
+                  Text(
+                    "Current eta: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Package status: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Location: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Status updated on: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ]),
               ),
-            ]),
+            ),
+            SizedBox(
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+                child: Column(children: [
+                  SizedBox(
+                    width: 300,
+                    height: 200,
+                    child: Image(
+                      image: AssetImage("assets/images/homeClipart.jpg"),
+                    ),
+                  ),
+                  Text((trackinfo.eta ?? 'null').substring(0, 9)),
+                  Text(trackinfo.tracking_status?.status_details ?? 'null'),
+                  Text(location),
+                  Text((trackinfo.tracking_status?.status_date ?? 'null')
+                      .substring(0, 9)),
+                ]),
+              ),
+            ),
+          ]),
         ),
       ),
     );

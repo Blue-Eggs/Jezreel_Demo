@@ -1,8 +1,14 @@
 import shippo
 from . import serviceTrack
+import environ
+
+env = environ.Env()
+env.read_env()
+SHIPPO_KEY = env('SHIPPO_KEY')
+print(SHIPPO_KEY)
 
 #  test key
-shippo.config.api_key = 'shippo_test_a23d47137308fe441ddcde413467c8f2e8ed742a'
+shippo.config.api_key = SHIPPO_KEY
 shippo.config.api_version = "2018-02-08"
 shippo.config.verify_ssl_certs = True
 shippo.config.rates_req_timeout = 30.0
