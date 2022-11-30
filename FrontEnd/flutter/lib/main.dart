@@ -270,21 +270,29 @@ class TrackInformation extends StatelessWidget {
                       image: AssetImage("assets/images/manMovingBox.png"),
                     ),
                   ),
-                  Text(
-                    "Current eta: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      "Current eta: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Text(
-                    "Package status: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: new Text(
+                        "Package status: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Text(
-                    "Location: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      "Location: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Text(
-                    "Status updated on: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      "Status updated on: ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ]),
               ),
@@ -302,11 +310,30 @@ class TrackInformation extends StatelessWidget {
                       image: AssetImage("assets/images/homeClipart.jpg"),
                     ),
                   ),
-                  Text((trackinfo.eta ?? 'null').substring(0, 9)),
-                  Text(trackinfo.tracking_status?.status_details ?? 'null'),
-                  Text(location),
-                  Text((trackinfo.tracking_status?.status_date ?? 'null')
-                      .substring(0, 9)),
+                  Expanded(
+                      child: SizedBox(
+                          width: 500,
+                          child: Text((trackinfo.eta ?? 'Delivered!').substring(0,10))
+                      )
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                        width: 500,
+                        child: new Text(trackinfo.tracking_status?.status_details ?? 'null')
+                    ),
+                  ),
+                  Expanded(
+                      child: SizedBox(
+                          width: 500,
+                          child: Text(location)
+                      ),
+                  ),
+                  Expanded(
+                      child: SizedBox(
+                          width: 500,
+                          child: Text((trackinfo.tracking_status?.status_date ?? 'Delivered!').substring(0,10))
+                      )
+                  ),
                 ]),
               ),
             ),

@@ -5,7 +5,6 @@ import environ
 env = environ.Env()
 env.read_env()
 SHIPPO_KEY = env('SHIPPO_KEY')
-print(SHIPPO_KEY)
 
 #  test key
 shippo.config.api_key = SHIPPO_KEY
