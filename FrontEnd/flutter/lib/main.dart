@@ -191,7 +191,9 @@ class TrackInformation extends StatelessWidget {
   ///
   @override
   Widget build(BuildContext context) {
-
+    String state = trackinfo.tracking_status?.location?.state ?? 'null';
+    String city = trackinfo.tracking_status?.location?.city ?? 'null';
+    String location = city + ", " + state;
 
     return Center(
       child: Scaffold(
@@ -220,19 +222,26 @@ class TrackInformation extends StatelessWidget {
                 width: 170,
                 child: Column( //Second column, has the labels for the data
                     children: [
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                      ),
                       Text("Tracking number: ",
                       style: TextStyle(fontWeight: FontWeight.bold),),
                       Text("Carrier: ",
                         style: TextStyle(fontWeight: FontWeight.bold),),
                       Text("Shipping category: ",
                         style: TextStyle(fontWeight: FontWeight.bold),),
-
                     ]),
               ),
               SizedBox(
                 width: 200,
                 child: Column( //Third Column, holds data from the json
                     children: [
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                      ),
                       Text(trackinfo.tracking_number ?? 'null'),
                       Text(trackinfo.carrier ?? 'null'),
                       Text(trackinfo.servicelevel.name ?? 'null'),
@@ -256,13 +265,11 @@ class TrackInformation extends StatelessWidget {
                       ),
                       Text("Current eta: ",
                         style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Status updated on: ",
-                        style: TextStyle(fontWeight: FontWeight.bold),),
                       Text("Package status: ",
                         style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Current state: ",
+                      Text("Location: ",
                         style: TextStyle(fontWeight: FontWeight.bold),),
-                      Text("Current city: ",
+                      Text("Status updated on: ",
                         style: TextStyle(fontWeight: FontWeight.bold),),
                     ]
                   ),
@@ -282,11 +289,10 @@ class TrackInformation extends StatelessWidget {
                             image: AssetImage("assets/images/homeClipart.jpg"),
                           ),
                         ),
-                        Text(trackinfo.eta ?? 'null'),
-                        Text(trackinfo.tracking_status?.status_date ?? 'null'),
+                        Text((trackinfo.eta ?? 'null').substring(0,9)),
                         Text(trackinfo.tracking_status?.status_details ?? 'null'),
-                        Text(trackinfo.tracking_status?.location?.state ?? 'null'),
-                        Text(trackinfo.tracking_status?.location?.city ?? 'null'),
+                        Text(location),
+                        Text((trackinfo.tracking_status?.status_date ?? 'null').substring(0,9)),
                       ]
                   ),
                 ),
