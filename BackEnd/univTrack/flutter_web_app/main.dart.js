@@ -63183,7 +63183,7 @@ tD(a){return this.a4L(a)},
 a4L(a){var s=0,r=A.a0(t.Wd),q,p,o,n
 var $async$tD=A.a1(function(b,c){if(b===1)return A.Y(c,r)
 while(true)switch(s){case 0:A.jS("Tracking "+a+" has been passed in this function")
-p=A.q7("http://blueeggstracker.com:8080/")
+p=A.q7("http://blueeggstracker.com:8080/views2/")
 o=t.N
 n=A.aw(["Content-Type","applications/json; charset=UTF-8"],o,o)
 s=3
