@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
     //print(returnedResult.body);*/
     print("Tracking $id has been passed in this function");
     http.Response test_Result = await http.post(
-      Uri.parse('http://127.0.0.1:8000/views2/'),
+      Uri.parse('http://ec2-3-17-159-227.us-east-2.compute.amazonaws.com:8080/views2/'),
       headers: <String, String>{
         'Content-Type': 'applications/json; charset=UTF-8'
       },
