@@ -35,17 +35,12 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:62112",
     "http://localhost:62112",
     "http://ec2-3-17-159-227.us-east-2.compute.amazonaws.com:8080",
-    "http://blueeggstracker.com:8080",
-    "http://blueeggstracker.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:62112",
     "http://localhost:62112",
     "http://ec2-3-17-159-227.us-east-2.compute.amazonaws.com:8080",
-    "http://blueeggstracker.com:8080",
-    "http://blueeggstracker.com",
-
 ]
 #End code for front/backend communication
 
