@@ -198,8 +198,8 @@ class TrackInformation extends StatelessWidget {
   ///
   @override
   Widget build(BuildContext context) {
-    String state = trackinfo.tracking_status?.location?.state ?? 'null';
-    String city = trackinfo.tracking_status?.location?.city ?? 'null';
+    String state = trackinfo.tracking_status?.location?.state ?? 'In';
+    String city = trackinfo.tracking_status?.location?.city ?? 'transit';
     String location = city + ", " + state;
 
     return Center(
