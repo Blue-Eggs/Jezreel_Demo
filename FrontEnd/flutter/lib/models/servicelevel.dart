@@ -1,6 +1,6 @@
 class Servicelevel {
-  final String name;
-  final String token;
+  final String? name;
+  final String? token;
 
   Servicelevel({required this.name, required this.token});
 

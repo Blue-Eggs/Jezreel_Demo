@@ -6,7 +6,7 @@ import '../models/trackingstatus.dart';
 class TrackInfo {
   String tracking_number;
   String carrier;
-  Servicelevel servicelevel;
+  Servicelevel? servicelevel;
   Address? address_from;
   Address? address_to;
   String? eta;
@@ -28,13 +28,13 @@ class TrackInfo {
   
 
   factory TrackInfo.fromJson(Map<String, dynamic> json){
-    print(json['tracking_history'][0]);
+   // print(json['tracking_history'][0]);
     //TrackingStatus.fromJson(json['tracking_history'][0]);
 
     return TrackInfo(
       tracking_number : json['tracking_number'],
       carrier : json['carrier'],
-      servicelevel: Servicelevel.fromJson(json['servicelevel']),
+      servicelevel: json['servicelevel'] == null ? null : Servicelevel.fromJson(json['servicelevel']),
       address_from: json['address_from'] == null ? null : Address.fromJson(json['address_from']),
       address_to: Address.fromJson(json['address_to']),
       eta : json['eta'] == null ? null : json['eta'],

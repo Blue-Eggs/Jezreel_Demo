@@ -43,6 +43,7 @@ class Home extends StatelessWidget {
     print("Tracking $id has been passed in this function");
     http.Response test_Result = await http.post(
       Uri.parse('http://blueeggstracker.com:8080/views2/'),
+     // Uri.parse('http://127.0.0.1:8000/views2/'),   // FOR DEMO TESTING
       headers: <String, String>{
         'Content-Type': 'applications/json; charset=UTF-8'
       },
@@ -51,6 +52,9 @@ class Home extends StatelessWidget {
         'title2': id,
       }),
     );
+
+    print(test_Result.body);
+    
 
     // Map<String, dynamic> myMap = json.decode(test_Result.body); //
     //print(myMap['tracking_history']);
@@ -198,9 +202,10 @@ class TrackInformation extends StatelessWidget {
   ///
   @override
   Widget build(BuildContext context) {
-    String state = trackinfo.tracking_status?.location?.state ?? 'In';
-    String city = trackinfo.tracking_status?.location?.city ?? 'transit';
+    String state = trackinfo.tracking_status?.location?.state ?? 'transit';
+    String city = trackinfo.tracking_status?.location?.city ?? 'In';
     String location = city + ", " + state;
+    
 
     return Center(
       child: Scaffold(
@@ -256,7 +261,7 @@ class TrackInformation extends StatelessWidget {
                 ),
                 Text(trackinfo.tracking_number ?? 'null'),
                 Text(trackinfo.carrier ?? 'null'),
-                Text(trackinfo.servicelevel.name ?? 'null'),
+                Text(trackinfo.servicelevel?.name ?? 'null'),
               ]),
             ),
             SizedBox(
